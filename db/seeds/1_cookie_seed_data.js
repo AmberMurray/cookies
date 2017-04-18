@@ -29,6 +29,10 @@ exports.seed = function(knex, Promise) {
           num_ingredients: '1',
           delicious: false
         }
-      ]);
-    });
-};
+      ])
+    }).then (() => {
+    return knex.raw(
+      "SELECT setval('cookies_id_seq', (SELECT MAX(id) FROM cookies))"
+    )
+  })
+}
